@@ -1,0 +1,36 @@
+version: "3"
+services: 
+  lb: 
+    image: openresty/openresty:alpine
+    volumes:
+    - "./nginx-lb.conf:/usr/local/openresty/nginx/conf/nginx.conf"
+    ports:
+    - "9000:80"
+  bloom: 
+    image: valeriansaliou/bloom:v1.28.0
+    volumes: 
+    - "./bloom.cfg:/etc/bloom.cfg"
+    ports: 
+    - "8811:8811"
+    - "9001:8080"
+  redis:
+    image: redis
+    ports:
+    - "6379:6379"
+  gitbase:
+    container_name: gitbase
+    hostname: gitbase
+    image: srcd/gitbase:v0.24.0-rc2
+    volumes: 
+    - "./git-demos:/opt/repos"
+    ports:
+    - "3306:3306"
+  sqler:
+    image: dalongrong/sqler:2.2
+    volumes:
+    - "./sqler.hcl:/app/config.example.hcl"
+    environment:
+    - "DSN=root@tcp(gitbase:3306)/gitbase"
+    ports:
+    - "3678:3678"
+    - "8025:8025"
