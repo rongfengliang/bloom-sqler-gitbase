@@ -1,5 +1,6 @@
 codecounts {
     exec = <<SQL
+SET inmemory_joins = 1;
 SELECT
 	repo,
 	MONTH,

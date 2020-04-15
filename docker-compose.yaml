@@ -30,7 +30,7 @@ services:
     volumes:
     - "./sqler.hcl:/app/config.example.hcl"
     environment:
-    - "DSN=root@tcp(gitbase:3306)/gitbase"
+    - "DSN=root@tcp(10.16.224.222:3306)/gitbase?multiStatements=true"
     ports:
     - "3678:3678"
     - "8025:8025"
