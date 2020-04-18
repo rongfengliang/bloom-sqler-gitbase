@@ -7,7 +7,7 @@ services:
     ports:
     - "9000:80"
   bloom: 
-    image: valeriansaliou/bloom:v1.28.0
+    image: dalongrong/bloom:v1.28.0
     volumes: 
     - "./bloom.cfg:/etc/bloom.cfg"
     ports: 
@@ -26,11 +26,11 @@ services:
     ports:
     - "3306:3306"
   sqler:
-    image: dalongrong/sqler:2.2
+    image: dalongrong/sqler:2.2-pprof
     volumes:
     - "./sqler.hcl:/app/config.example.hcl"
     environment:
-    - "DSN=root@tcp(10.16.224.222:3306)/gitbase?multiStatements=true"
+    - "DSN=root@tcp(gitbase:3306)/gitbase?multiStatements=true"
     ports:
     - "3678:3678"
     - "8025:8025"
